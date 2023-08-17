@@ -76,7 +76,3 @@ namespace Magnus_Validator
 
 
 // did really try to get this to work correctly but it didnt quite do what i wanted it to do. i can type text and it does tell me if a how strong the password is. did use a fair bit of online help.
-    }
-}
-
-// did really try to get this to work correctly but it didnt yet do what i wanted it to do. i can type text and can see what is wrong with the text. 
