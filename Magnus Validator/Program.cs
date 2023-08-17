@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,25 +6,44 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace Magnus_Validator
 {
     internal class Program
     {
         static void Main()
         {
-            string userPassword = GetUserInput("Indtast dit password: ");
+            Controller();
+        }
 
-            bool isValid = Controller(userPassword);
+        public static void Controller() // the code is wtthin this part
+        {
+            string userPassword = GetUserInput("Indtast dit password: "); 
+            bool isValid = IsPasswordValid(userPassword);
+            bool isWeak = false;
 
             if (isValid)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Grøn: Passwordet er OK");
+                isWeak = IsPasswordWeak(userPassword);
             }
-            else if (IsPasswordValid(userPassword))
+
+            Views(isValid, isWeak);
+        }
+
+        public static void Views(bool isValid, bool isWeak)
+        {
+            if (isValid)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Gul: Passwordet er OK, men betragtes som svagt");
+                if (isWeak)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Gul: Passwordet er OK, men betragtes som svagt");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Grøn: Passwordet er OK");
+                }
             }
             else
             {
@@ -35,63 +54,28 @@ namespace Magnus_Validator
             Console.ResetColor(); // Reset the console color to default
         }
 
-        #region Controllers
-
-        public static bool Controller(string Password)
-        {
-            if (!IsPasswordValid(Password))
-            {
-                return false;
-            }
-
-            if (HasRepeatingChars(Password) || HasSequentialDigits(Password))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        #endregion
-
-        #region Password Validation
-
         public static bool IsPasswordValid(string Password)
         {
-            // The existing password validation logic
-
+            //  THe sword validation logic
            
         }
 
-        #endregion
-
-        #region Repeating Characters and Sequential Digits
-
-        public static bool HasRepeatingChars(string Password)
+        public static bool IsPasswordWeak(string Password)
         {
-            // the existing repeating characters logic
-
+            // the weak password criteria logic
             
         }
 
-        public static bool HasSequentialDigits(string Password)
-        {
-            // the existing sequential digits logic
-
-            
-        }
-
-        #endregion
-
-        #region Views
-
-        static string GetUserInput(string prompt)
+        public static string GetUserInput(string prompt)
         {
             Console.Write(prompt);
             return Console.ReadLine();
         }
+    }
+}
 
-        #endregion
+
+// did really try to get this to work correctly but it didnt quite do what i wanted it to do. i can type text and it does tell me if a how strong the password is. did use a fair bit of online help.
     }
 }
 
